@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phishing Simulation</title>
+    <link rel="stylesheet" href="phishingSimulation.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Toggle Buttons -->
+        <div class="view-toggle">
+            <button id="general-view-btn">General View</button>
+            <button id="email-view-btn">Email View</button>
+        </div>
+
+        <!-- General Scenario Display -->
+        <div id="scenario-display" class="view">
+            <h2>Scenario Type: <span id="scenario-type"></span></h2>
+            <p id="scenario-content"></p>
+            <div class="buttons">
+                <button id="right-btn">Right</button>
+                <button id="wrong-btn">Wrong</button>
+            </div>
+        </div>
+
+        <!-- Email Scenario Display (Hidden by Default) -->
+        <div id="email-simulation" class="view" style="display: none;">
+            <div class="email-header">
+                <h1>Phishing Simulation</h1>
+                <p>Inbox > Spam > <strong>Security Alert</strong></p>
+            </div>
+            <div class="email-details">
+                <div class="sender-info">
+                    <strong>Security Team</strong> &lt;security@yourbank.com&gt;<br>
+                    To me - <span class="timestamp">Today at 10:32 AM</span>
+                </div>
+                <div class="subject-line">
+                    <strong>Urgent: Your Account Needs Verification!</strong>
+                </div>
+            </div>
+            <div class="email-content">
+                <p>Dear Customer,</p>
+                <p>
+                    We have detected unusual activity on your account. Please verify your account by clicking the link below within 24 hours, or your account may be temporarily suspended.
+                </p>
+                <p><a href="#" class="phish-link">Verify your account now</a></p>
+                <p>
+                    Contact customer service at 
+                    <a href="#" class="phish-link">support@yourbank.com</a> or visit our <a href="#" class="phish-link">Help Center</a>.
+                </p>
+                <p>Best regards,</p>
+                <p>Security Team</p>
+            </div>
+            <div class="attachments">
+                <p><strong>Attachments:</strong></p>
+                <ul>
+                    <li><a href="#" class="phish-link">Transaction_History.pdf</a> (45 KB)</li>
+                </ul>
+            </div>
+            <!-- Phishing Action Buttons -->
+            <div class="buttons">
+                <button id="right-btn-email">Right</button>
+                <button id="wrong-btn-email">Wrong</button>
+            </div>
+        </div>
+
+        <!-- Feedback Section (Initially Hidden) -->
+        <div id="feedback" style="display:none;">
+            <p id="explanation"></p>
+            <button onclick="closeFeedback()">OK</button>
+        </div>
+    </div>
+
+    <script src="scenarios.js"></script>
+    <script src="phishingSimulation.js"></script>
+    <script src="../Coding Challenge/codingChallenges.js"></script>
+</body>
+</html>
