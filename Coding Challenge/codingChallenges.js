@@ -1,13 +1,3 @@
-const jobData = [
-    {jobRole: "Cybersecurity Analyst", experienceReq: [1, 2, 3], openRoles: 32000},
-    {jobRole: "Threat Intelligence Analyst", experienceReq: [2, 3, 4], openRoles: 15000},
-    {jobRole: "Cloud Security Engineer", experienceReq: [3, 4, 5], openRoles: 25000},
-    {jobRole: "Incident Response Manager", experienceReq: [4, 5, 6], openRoles: 18000},
-    {jobRole: "Governance & Compliance Specialist", experienceReq: [5], openRoles: 10000},
-    {jobRole: "Security Architect", experienceReq: [7], openRoles: 8000}
-];
-
-
 // jobData contains a list of cybersecurity job roles, showing how many open positions each role has 
 // and what experience levels are needed.
 // - Each item in the list is an object with three parts:
@@ -17,32 +7,47 @@ const jobData = [
 // This setup helps us see the open positions by job and the range of experience levels required, 
 // so we can analyze where the biggest gaps might be for each experience level.
 
-// Function to print job roles and openings, and calculate total openings for each experience level
-function printJobOpeningsAndCalculateLevels(data) {
-    const levelOpenings = {}; // Object to store total openings for each experience level
+const jobData = [
+    { jobRole: "Cybersecurity Analyst", experienceReq: [1, 2, 3], openRoles: 32000 },
+    { jobRole: "Threat Intelligence Analyst", experienceReq: [2, 3, 4], openRoles: 15000 },
+    { jobRole: "Cloud Security Engineer", experienceReq: [3, 4, 5], openRoles: 25000 },
+    { jobRole: "Incident Response Manager", experienceReq: [4, 5, 6], openRoles: 18000 },
+    { jobRole: "Governance & Compliance Specialist", experienceReq: [5], openRoles: 10000 },
+    { jobRole: "Security Architect", experienceReq: [7], openRoles: 8000 }
+];
 
-    // Loop through each job in the data
+// Function to calculate total talent gap and highest shortage by experience level
+function calculateTalentGapAnalysis(data) {
+    const levelGaps = {}; // Object to store total openings (gaps) for each experience level
+    let totalGap = 0;
+
+    // Loop through each job in the data to calculate gaps by level
     data.forEach(job => {
-        // Print the job role and the number of openings
-        console.log(`${job.jobRole}: ${job.openRoles} openings`);
-
-        // Loop through each experience level required by this job
         job.experienceReq.forEach(level => {
-            // If the level is not in the levelOpenings object, initialize it to 0
-            if (!levelOpenings[level]) {
-                levelOpenings[level] = 0;
+            if (!levelGaps[level]) {
+                levelGaps[level] = 0;
             }
-            // Add the job's openings to this experience level
-            levelOpenings[level] += job.openRoles;
+            levelGaps[level] += job.openRoles;
+            totalGap += job.openRoles;
         });
     });
 
-    // Print total openings for each experience level
-    console.log("\nTotal Openings by Experience Level:");
-    for (const [level, openings] of Object.entries(levelOpenings)) {
-        console.log(`Level ${level}: ${openings} openings`);
+    // Find the experience level with the highest shortage
+    let highestShortageLevel = null;
+    let highestGap = 0;
+
+    for (const [level, gap] of Object.entries(levelGaps)) {
+        if (gap > highestGap) {
+            highestShortageLevel = level;
+            highestGap = gap;
+        }
     }
+
+    // Print the output in the desired format
+    console.log("Cybersecurity Talent Gap Analysis:");
+    console.log(`Total Talent Gap: ${totalGap}`);
+    console.log(`Highest Shortage: Level ${highestShortageLevel} with a gap of ${highestGap}`);
 }
 
 // Call the function to display results
-printJobOpeningsAndCalculateLevels(jobData);
+calculateTalentGapAnalysis(jobData);
